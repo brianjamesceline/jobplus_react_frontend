@@ -8,6 +8,7 @@ import StarBorderIcon from '@material-ui/icons/StarBorder';
 import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import LocationOnIcon from '@material-ui/icons/LocationOn';
 import TimerIcon from '@material-ui/icons/Timer';
+import Controls from './controls/Controls';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -78,33 +79,101 @@ const useStyles = makeStyles((theme) => ({
     textAlign: 'right',
     display: 'block',
     color: 'inherit',
+  },
+  skills: {
+    display: 'flex',
+    flexWrap: 'wrap',
+    listStyle: 'none',
+    padding: '0',
+    marginBottom: '20px',
+    '& li': {
+      backgroundColor: theme.palette.common.skills,
+      padding: '7px 9px',
+      fontSize: '14px',
+      borderRadius: '16px',
+      marginRight: '10px',
+      marginBottom: '10px'
+    }
+  },
+  apply: {
+    marginBottom: '150px'
   }
 }));
 
 export default function Listing(props) {
   const classes = useStyles();
+  const { detailed = false } = props;
 
   return (
-      <div className={classes.root}>
-        <header className={classes.header}>
-          <Typography className={classes.title} variant="h1">Regulatory Affairs Senior Manager</Typography>
-          <StarBorderIcon className={classes.saved} />
-          <p className={classes.company}>Posted by <span>Koco Media</span></p>
-        </header>
+      <>
+        <div className={classes.root}>
+          <header className={classes.header}>
+            <Typography className={classes.title} variant="h1">Regulatory Affairs Senior Manager</Typography>
+            <StarBorderIcon className={classes.saved} />
+            <p className={classes.company}>Posted by <span>Koco Media</span></p>
+          </header>
 
-        <ul className={classes.items}>
-          <li><AttachMoneyIcon /><b>Salary negotiable</b></li>
-          <li><LocationOnIcon />Heyes, <b>Uxbridge</b></li>
-          <li><TimerIcon />Contract, full-time</li>
-        </ul>
+          <ul className={classes.items}>
+            <li><AttachMoneyIcon /><b>Salary negotiable</b></li>
+            <li><LocationOnIcon />Heyes, <b>Uxbridge</b></li>
+            <li><TimerIcon />Contract, full-time</li>
+          </ul>
 
-        <p className={classes.details}>
-          Lorem ipsum dolor, sit amet consectetur adipisicing elit.
-          Explicabo, asperiores ullam minus at <b><Link to="/">Read more...</Link></b>
-        </p>
 
-        <Link className={classes.cta} to="/">Withdraw application</Link>
+          {/* If not detailed, do something else... */}
+          {!detailed ? (
+            <>
+              <p className={classes.details}>
+                Lorem ipsum dolor, sit amet consectetur adipisicing elit.
+                Explicabo, asperiores ullam minus at <b><Link to="/listing-details">Read more...</Link></b>
+              </p>
 
-      </div>
+              <Link className={classes.cta} to="/">Withdraw application</Link>
+            </>
+          ) : (
+            <Controls.FormGroupCustom className={classes.button}>
+              <Controls.ButtonCustom text="Apply Now" />
+            </Controls.FormGroupCustom>
+          )}       
+        </div>
+        
+        {/* If it's True, add the below paragraph to the page. */}
+        { detailed ? (
+          <>
+            <p className={classes.details}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+              labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+              nisi ut aliquip ex ea commodo consequat.  
+            </p>
+
+            <p className={classes.details}>
+              Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut 
+              labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris 
+              nisi ut aliquip ex ea commodo consequat.  
+            </p>
+
+            <h3>Required skills</h3>
+
+            <ul className={classes.skills}>
+              <li>Html</li>
+              <li>CSS</li>
+              <li>Python</li>
+              <li>Javascript</li>
+              <li>React</li>
+              <li>PHP</li>
+              <li>C#</li>
+              <li>Ruby</li>
+              <li>Django</li>
+              <li>PHP</li>
+            </ul>
+
+            <div className={classes.apply}>
+              <Controls.FormGroupCustom className={classes.button}>
+                <Controls.ButtonCustom text="Apply Now" />
+              </Controls.FormGroupCustom>
+            </div>
+          </>
+        ) : ''}
+      </>
   )
 }
